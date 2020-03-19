@@ -31,15 +31,25 @@ class Home extends StatelessWidget {
           builder: (context, snap) {
             if (snap.hasData) {
               if (snap.data is ImageInitial) {
-                return FlatButton(
-                    onPressed: () {
-                      _bloc.submitEvent(Open());
-                    },
-                    child: Text("Press me"));
+                return Container(
+                  child: Center(
+                    child: RaisedButton(
+                      color: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0)),
+                      child: Text("Загрузить изображение",
+                          style: TextStyle(fontSize: 16, color: Colors.white)),
+                      onPressed: () {
+                        _bloc.submitEvent(Open());
+                      },
+                    ),
+                  ),
+                );
               } else if (snap.data is ImageLoaded) {
-                return Image(image: (snap.data as ImageLoaded).image);
+                return Center(
+                    child: Image(image: (snap.data as ImageLoaded).image));
               } else {
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               }
             } else {
               return Text("ERROR");
